@@ -325,7 +325,11 @@ class pointer_based_stl_iterator {
  public:
   typedef Index difference_type;
   typedef typename XprType::Scalar value_type;
+#if __cplusplus >= 202002L
+  typedef std::contiguous_iterator_tag iterator_category;
+#else
   typedef std::random_access_iterator_tag iterator_category;
+#endif
   typedef std::conditional_t<bool(is_lvalue), value_type*, const value_type*> pointer;
   typedef std::conditional_t<bool(is_lvalue), value_type&, const value_type&> reference;
 
